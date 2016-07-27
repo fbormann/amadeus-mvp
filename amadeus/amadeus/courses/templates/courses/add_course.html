@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+	
+	{% if success %}
+		<div class="panel panel-success">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Cadastro foi um sucesso!</h3>
+		  </div>
+		  <div class="panel-body">
+		    Curso {{course_name}} foi criado com sucesso
+		  </div>
+		</div>
+	{% endif %}
+	<form class="form-horizontal" method="POST">
+		 {% for field in create_course_form  %}
+		 	<div class="form-group">
+		 	<label class="col-lg-2 control-label">{{field.label }}</label>
+		 	<div class="col-lg-10">
+		 		{%render_field field class+="form-control"%}
+		 	</div>
+		 	</div>
+		 {% endfor %}
+		 <div class="form-group">
+	      <div class="col-lg-10 col-lg-offset-2">
+	        <button type="reset" class="btn btn-default">Cancel</button>
+	        <button type="submit" class="btn btn-primary">Submit</button>
+	      </div>
+	    </div>
+	    {% csrf_token %}
+	</form>
+{% endblock content %}
