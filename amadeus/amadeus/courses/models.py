@@ -15,11 +15,11 @@ class Course(models.Model):
       is_approved = models.BooleanField('Aprovado', default=False, blank=True)
       category = models.ForeignKey(Category, verbose_name='Categoria')
       limit = models.IntegerField('Limite_Alunos',default=0)
-      subscription_start = models.DateTimeField(default=timezone.now)
-      subscription_finish = models.DateTimeField(default=timezone.now)
-      start_date = models.DateTimeField(default=datetime.date.today)
-      end_date = models.DateField(default=datetime.date.today)
-      image = models.ImageField(upload_to='static/images', blank=True)
+      subscription_start = models.DateTimeField(blank=True, null = True)
+      subscription_finish = models.DateTimeField(blank=True, null = True)
+      start_date = models.DateTimeField(blank=True, null = True)
+      end_date = models.DateField(blank=True, null=True)
+      image = models.ImageField(upload_to='imagens/', blank=True)
 
 
 

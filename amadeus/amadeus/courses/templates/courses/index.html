@@ -6,7 +6,7 @@
 		<div class="jumbotron">
 		  <h1>{{course.name}}</h1>
 		  <p>Inscrições começam: {{course.subscription_start|date:"d/m/Y"|default:"Não definida"}}</p>
-		  <p><!--<a href=" url 'courses:categories' courses.category.slug">--><span class="label label-info"> Categoria: {{course.category.name}} </span></p>
+		  <p><a href="{% url 'courses:categories' course.category.slug %}"><span class="label label-info"> Categoria: {{course.category.name}} </span></p>
 		  <p><a href="{% url 'courses:details' course.slug %}" class="btn btn-primary btn-md">Aprenda mais</a></p>
 		</div>
 		<!--<h2>{{course.name}}</h2>

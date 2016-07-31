@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="course-info">
+<div class="course-info col-md-8">
 	<h1>{{ course.name }}</h1>
 	<p class="lead">
 	  <strong>Categoria</strong>: {{ course.category.name }}<br>
@@ -14,7 +14,7 @@
 	</p>
 
 	<h2> Módulos </h2>
-	<div class=>
+	<div class="">
 	{% for module in modules %}
 
 		<div class="panel panel-info">
@@ -37,5 +37,8 @@
 
 </div>
 
+<div class="col-md-4">
+	<img src="{{course.image.url}}" class="img-rounded">
+</div>
 {{ course.description|linebreaks }}
 {% endblock %}

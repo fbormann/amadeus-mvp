@@ -135,6 +135,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #FOR IMAGES
-MEDIA_ROOT = 'Documents/Amadeus/amadeus/amadeus/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-MEDIA_URL = 'static/images/'
+MEDIA_URL = '/media/'
