@@ -17,11 +17,15 @@ from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib import admin
 from django.views.static import serve
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('core.urls', namespace='core')),
-    url(r'^', include('courses.urls', namespace = 'courses'))
+    url(r'^', include('courses.urls', namespace = 'courses')),
+    url(r'^login/$', auth_views.login, {'template_name':'login.hmtl'}, name='login'),
+    url(r'^logout/$', auth_views.logout, {'next_page':'index'},name='logout'),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
 ]
 
 if settings.DEBUG:

@@ -8,7 +8,7 @@ class createCourseForm(forms.ModelForm):
 
 	class Meta:
 		model = Course
-		fields = ('name','slug','goals','is_approved','limit', 'category', 'image') #I am able to set which fields I want
+		fields = ('name','slug','is_approved', 'category') #I am able to set which fields I want
 
 
 class createCategoryForm(forms.ModelForm):

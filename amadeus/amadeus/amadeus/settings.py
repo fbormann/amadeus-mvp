@@ -37,10 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #apps
     'core',
     'courses',
     'amadeus',
-    'widget_tweaks'
+    'accounts',
+    #apps and libs
+    'widget_tweaks',
+    'rolepermissions'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -138,3 +142,15 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 MEDIA_URL = '/media/'
+
+#ACCOUNTS, USER SESSION AND LOGIN HANDLERS
+
+LOGIN_REDIRECT_URL = 'accounts:profile'
+LOGIN_URL = 'accounts:login'
+AUTH_USER_MODEL = 'accounts.User'
+
+
+AUTHENTICATION_BACKENDS = [
+'django.contrib.auth.backends.ModelBackend',
+'accounts.backends.ModelBackend'
+]
