@@ -3,7 +3,20 @@ from django.http import HttpResponse
 
 from .models import Category, Course, Module
 from .forms import createCourseForm, createModuleForm, createCategoryForm
+
+from django.views import generic
 # Create your views here.
+
+class IndexView(generic.ListView):
+
+	queryset = Course.objects.filter(is_approved=True)
+	template_name = 'courses/index.html'
+	context_object_name = 'courses'
+	paginate_by = 3
+
+
+class detailView(generic.DetailView):
+	pass
 
 def details(request, slug):
 	context = {}
@@ -15,11 +28,12 @@ def details(request, slug):
 	context['modules'] = modules
 	return render(request, 'courses/details.html', context)
 
-def index(request):
+"""def index(request):
 	context = {}
 	courses = Course.objects.all()
 	context['courses'] = courses
-	return render(request, 'courses/index.html', context)
+	return render(request, 'courses/index.html', context)"""
+
 
 def category(request, slug='python'):
 	context = {}
