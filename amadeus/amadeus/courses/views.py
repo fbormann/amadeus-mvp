@@ -16,9 +16,20 @@ class IndexView(generic.ListView):
 
 
 class detailView(generic.DetailView):
-	pass
+	model = Course
 
-def details(request, slug):
+	template_name = "courses/details.html"
+	def get_context_data(self, **kwargs):
+		print(self.kwargs)
+		context = {}
+		course = get_object_or_404(Course, slug=self.kwargs['slug'])
+		context['course'] = course
+		context['complement_name'] = course.name
+		modules = Module.objects.filter(course__slug=self.kwargs['slug'])
+		context['modules'] = modules
+		return context
+
+"""def details(request, slug):
 	context = {}
 	print(slug)
 	course = get_object_or_404(Course, slug=slug)
@@ -26,7 +37,7 @@ def details(request, slug):
 	context['complement_name'] = course.name
 	modules = Module.objects.filter(course__slug=slug)
 	context['modules'] = modules
-	return render(request, 'courses/details.html', context)
+	return render(request, 'courses/details.html', context)"""
 
 """def index(request):
 	context = {}
