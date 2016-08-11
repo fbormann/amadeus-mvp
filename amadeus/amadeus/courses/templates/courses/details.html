@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
 <div class="course-info col-md-8">
@@ -12,28 +12,7 @@
 	  <strong>Fim do curso</strong>: {{ course.end_date|date:"d/m/Y"|default:"Não definida" }}<br>
 	  
 	</p>
-
-	<h2> Módulos </h2>
-	<div class="">
-	{% for module in modules %}
-
-		<div class="panel panel-info">
-		  	<div class="panel-heading">
-		    	<h3 class="panel-title">{{ module.name }}</h3>
-		  	</div>
-		  	<div class="panel-body">
-		    	{{ module.description }} <br>
-				{{ module.visible }} <br>
-		  	</div>
-			<div class="panel-footer">
-		  	<div class="progress">
-  				<div class="progress-bar progress-bar-success" style="width: 40%"></div>
-			</div>
-			</div>
-		</div>
-
-	{% endfor %}
-	</div>
+	{% include "courses/list_module.html" %}
 
 </div>
 

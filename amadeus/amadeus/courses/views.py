@@ -19,6 +19,7 @@ class detailView(generic.DetailView):
 	model = Course
 
 	template_name = "courses/details.html"
+	
 	def get_context_data(self, **kwargs):
 		print(self.kwargs)
 		context = {}
@@ -29,22 +30,12 @@ class detailView(generic.DetailView):
 		context['modules'] = modules
 		return context
 
-"""def details(request, slug):
-	context = {}
-	print(slug)
-	course = get_object_or_404(Course, slug=slug)
-	context['course'] = course
-	context['complement_name'] = course.name
-	modules = Module.objects.filter(course__slug=slug)
-	context['modules'] = modules
-	return render(request, 'courses/details.html', context)"""
 
-"""def index(request):
-	context = {}
-	courses = Course.objects.all()
-	context['courses'] = courses
-	return render(request, 'courses/index.html', context)"""
+class ListByCategory(generic.ListView):
 
+	template_name = 'courses/category.html'
+	context_object_name = 'courses'
+	paginate_by = 4
 
 def category(request, slug='python'):
 	context = {}
@@ -54,23 +45,35 @@ def category(request, slug='python'):
 	context['courses'] = category.course_set.filter(is_approved=True)
 	return render(request, 'courses/category.html', context)
 
-def create(request):
-	context = {}
-	if request.method == 'POST': #form submitted
-		create_course = createCourseForm(data= request.POST)
+
+class CreateView(generic.CreateView):
+	model = Course
+	fields = ('name','slug','is_approved', 'category')
+	
+
+	def post(self, request):
+		context = {}
+		create_course = createCourseForm(data=request.POST)
 		if create_course.is_valid():
-			new_course = create_course.save(commit=False) #don't save to the database yet
-			new_course.save()
+			new_course = create_course.save(commit=False) #So it's not save right now
+			new_course.save() #now it was actually saved
 			context['success'] = True
 			context['create_course_form'] = createCourseForm()
 			context['course_name'] = new_course.name
-	else:
-		context['create_course_form'] = createCourseForm()
-	return render(request,'courses/add_course.html',context)
 
-def createModule(request):
-	context = {}
-	if request.method == 'POST': #form submitted
+		return render(request, 'courses/add_course.html', context)
+
+	def get(self, request):
+		context = {}
+		context['create_course_form'] = createCourseForm()
+		return render(request, 'courses/add_course.html', context)
+
+class CreateModuleView(generic.CreateView):
+	model = Module
+	fields = ('name','slug','course','visible','description')
+
+	def post(self, request):
+		context = {}
 		create_module = createModuleForm(data= request.POST)
 		if create_module.is_valid():
 			new_module = create_module.save(commit=False) #don't save to the database yet
@@ -78,20 +81,33 @@ def createModule(request):
 			context['success'] = True
 			context['create_module_form'] = createModuleForm()
 			context['module_name'] = new_module.name
-	else:
-		context['create_module_form'] = createModuleForm()
-	return render(request,'courses/add_module.html',context)
 
-def createCategory(request):
-	context = {}
-	if request.method == 'POST': #form submitted
+		return render(request,'courses/add_module.html',context)
+
+	def get(self, request):
+		context = {}
+		context['create_module_form'] = createModuleForm()
+		return render(request,'courses/add_module.html',context)
+
+
+class CreateCategoryView(generic.CreateView):
+	model = Module
+	fields = ['name','slug']
+
+	def post(self, request):
+		context = {}
 		create_category = createCategoryForm(data= request.POST)
 		if create_category.is_valid():
 			new_category = create_category.save(commit=False) #don't save to the database yet
 			new_category.save()
 			context['success'] = True
 			context['create_category_form'] = createCategoryForm()
-			context['category_name'] = new_category.name
-	else:
+			context['module_name'] = new_category.name
+
+		return render(request,'courses/add_category.html',context)
+
+	def get(self, request):
+		context = {}
 		context['create_category_form'] = createCategoryForm()
-	return render(request,'courses/add_category.html',context)
+		return render(request,'courses/add_category.html.html',context)
+
