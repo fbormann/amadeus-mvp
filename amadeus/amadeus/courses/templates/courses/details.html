@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load modellist %}
 {% block content %}
 <div class="course-info col-md-8">
 	<h1>{{ course.name }}</h1>
@@ -12,12 +13,10 @@
 	  <strong>Fim do curso</strong>: {{ course.end_date|date:"d/m/Y"|default:"Não definida" }}<br>
 	  
 	</p>
-	{% include "courses/list_module.html" %}
+	{% module_list request course.slug %}
+	<!--{% include "courses/list_module.html" %}-->
 
 </div>
 
-<!--<div class="col-md-4">
-	<img src="course.image.url}}" class="img-rounded">
-</div>-->
 {{ course.description|linebreaks }}
 {% endblock %}

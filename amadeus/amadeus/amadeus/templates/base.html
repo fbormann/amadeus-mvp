@@ -6,11 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+   
     {% if complement_name %}
       <title>Amadeus - {{ complement_name }}</title>
     {% else %}
       <title>Amadeus</title>
     {% endif %}
+    
    
 
     <!-- Bootstrap -->
@@ -36,7 +38,13 @@
        
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href=""{% url 'login' %}>Login</a></li>
+       
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'accounts:register_user' %}"> Register </a></li>
+        {% endif %}
       </ul>
     </div>
   </div>

@@ -19,4 +19,26 @@
 		</div>
 
 	{% endfor %}
+
+		{% if is_paginated %} 
+		<div class="text-center">
+			<ul class="pagination ">
+
+				{% if page_obj.has_previous %}
+                <li>
+                	<a href="/cursos/?page={{ page_obj.previous_page_number }}">{{page_obj.previous_page_number}}</a>
+                </li>
+                {% endif %}
+                <li class="active">
+                	<a href="#">{{page_obj.number}}</a>
+                </li>
+               
+                {% if page_obj.has_next %}
+                <li>    
+                	<a href="/cursos/?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a> </li>
+                {% endif %}
+			</ul>
+		</div>
+			
+		{% endif %}
 	</div>
