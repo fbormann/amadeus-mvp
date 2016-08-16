@@ -1,10 +1,12 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext as _
 import datetime
 
+
 class Category(models.Model):
-   name = models.CharField('Name', max_length=100)
-   slug = models.SlugField('Identifier', max_length=100)
+   name = models.CharField(_('Name'), max_length=100)
+   slug = models.SlugField(_('Identifier'), max_length=100)
 
 class Course(models.Model):
 

@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .models import Category, Course, Module
 from .forms import createCourseForm, createModuleForm, createCategoryForm
 
+from rolepermissions.verifications import has_permission
 from django.views import generic
 # Create your views here.
 

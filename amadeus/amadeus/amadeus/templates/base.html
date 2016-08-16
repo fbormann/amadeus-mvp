@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load i18n %}
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -33,17 +34,17 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="{% url 'courses:index' %}">Cursos <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="{% url 'courses:index' %}"> {% trans "Courses" %} <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Link</a></li>
        
       </ul>
       <ul class="nav navbar-nav navbar-right">
        
         {% if user.is_authenticated %}
-        <li><a href="{% url 'logout' %}">Logout</a></li>
+        <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
         {% else %}
-        <li><a href="{% url 'login' %}">Login</a></li>
-        <li><a href="{% url 'accounts:register_user' %}"> Register </a></li>
+        <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
+        <li><a href="{% url 'accounts:register_user' %}">{% trans "Register" %} </a></li>
         {% endif %}
       </ul>
     </div>
